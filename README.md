@@ -1,6 +1,6 @@
 # nsquishy
 
-A wrapper of **[nsqjs](https://github.com/dudleycarr/nsqjs)** to simplify microservice workers using NSQ
+A **[Hapi](http://github.com/hapijs/hapijis)** plugin that creates a wrapper of **[nsqjs](https://github.com/dudleycarr/nsqjs)** to simplify microservice workers using NSQ
 
 ## Plugin Options
 
