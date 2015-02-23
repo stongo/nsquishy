@@ -30,19 +30,23 @@ The following options are available when registering the plugin
 
 ## Writer
 
-On registration, `server.app.nsqWriter` is assigned an initialized instance of a nsq [writer]()
+On registration, `server.app.nsqWriter` is assigned an initialized instance of a [nsqjs writer](https://github.com/dudleycarr/nsqjs)
 
 ### Methods:
 
 * `init` - initializes connection to nsq. Callback fires on `ready` event. Automatically handles `err` and `ready` events
 
+See nsqjs for full writer documentation
+
 ## Reader
 
-On registration, `server.app.nsqReader` is assigned an initialized instance of a nsq [reader](https://github.com/dudleycarr/nsqjs)
+On registration, `server.app.nsqReader` is assigned an initialized instance of a [nsqjs reader](https://github.com/dudleycarr/nsqjs)
 
 ### Methods:
 
 * `init` - initializes connection to nsq. Callback fires on `nsqd_connected` event. Automatically handles `err` and `nsqd_connected` events
+
+See nsqjs for full reader documentation
 
 ## Example
 
