@@ -1,6 +1,6 @@
 # nsquishy
 
-A wrapper of [nsqjs](https://github.com/dudleycarr/nsqjs) to simplify microservice workers using NSQ
+A wrapper of **[nsqjs](https://github.com/dudleycarr/nsqjs)** to simplify microservice workers using NSQ
 
 ## Plugin Options
 
@@ -30,7 +30,7 @@ The following options are available when registering the plugin
 
 ## Writer
 
-On registration, `server.app.nsqWriter` is assigned an initialized instance of a [nsqjs writer](https://github.com/dudleycarr/nsqjs)
+On registration, `server.app.nsqWriter` is assigned an initialized instance of a **[nsqjs writer](https://github.com/dudleycarr/nsqjs)**
 
 ### Methods:
 
@@ -40,7 +40,7 @@ See nsqjs for full writer documentation
 
 ## Reader
 
-On registration, `server.app.nsqReader` is assigned an initialized instance of a [nsqjs reader](https://github.com/dudleycarr/nsqjs)
+On registration, `server.app.nsqReader` is assigned an initialized instance of a **[nsqjs reader](https://github.com/dudleycarr/nsqjs)**
 
 ### Methods:
 
