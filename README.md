@@ -10,14 +10,42 @@ var Hapi = require('hapi');
 var server = new Hapi.Server();
 server.connection();
 
+// specify nsqlookupd host yourself
+var options = {
+    nsqlookupd: '127.0.0.1:4161',
+    topic: 'test',
+    channel: 'test'
+}
+
+// if nsqlookupd is stored in etcd - like in a distributed system like CoreOS
+var optionsEtcd = {
+    etcd: 'http://127.0.0.1:4001',
+    etcdNsqlookupKey: '/nsqlookupd-http',
+    topic: 'test',
+    channel: 'test'
+}
+
+// just using an nsqd instance
+var optionsNsqd = {
+    nsqdHost: '127.0.0.1',
+    nsqdPort: '4150'
+    topic: 'test',
+    channel: 'test'
+}
+
+// if you don't specify a channel, only writer is available
+var optionsNoTopic = {
+    nsqdHost: '127.0.0.1',
+    nsqdPort: '4150'
+}
+
 server.register([
     {
         register: require('nsquishy'),
-        options: {
-            nsqlookupd: '127.0.0.1:4161'
-            topic: 'test',
-            channel: 'test'
-        }
+        options: options
+        //options: optionsEtcd
+        //options: optionsNsqd
+        //options: optiionsNoTopic
     }
 ], function (err) {
     if (err) {
@@ -94,3 +122,7 @@ On registration, `server.app.nsqReader` is assigned an initialized instance of a
 * `init` - initializes connection to nsq. Callback fires on `nsqd_connected` event. Automatically handles `err` and `nsqd_connected` events
 
 See nsqjs for full reader documentation
+
+## Testing
+
+Install https://github.com/stongo/nsq-vagrant to run tests and develop your workers
