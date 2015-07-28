@@ -8,7 +8,7 @@ var it = lab.it;
 var expect = Code.expect;
 
 describe('nsquishy', function () {
-/*
+
     it('registers as a plugin, but fails with no plugin options', function (done) {
 
         var server = new Hapi.Server();
@@ -65,7 +65,7 @@ describe('nsquishy', function () {
             done();
         });
     });
-*/
+
     it('adds a nsqReader and nsqWriter object to server.app when a topic and channel option are set', function (done) {
 
         var server = new Hapi.Server();
@@ -83,7 +83,7 @@ describe('nsquishy', function () {
             done();
         });
     });
-/*
+
     it('adds a nsqWriter object to server.app when a topic and channel option are not set', function (done) {
 
         var server = new Hapi.Server();
@@ -138,5 +138,5 @@ describe('nsquishy', function () {
             done();
         });
     });
-*/
+
 });
