@@ -18,6 +18,7 @@
     "test": "make test"
   },
   "dependencies": {
+    "bluebird": "^2.9.34",
     "boom": "^2.6.1",
     "hoek": "2.11.0",
     "joi": "^5.1.0",
