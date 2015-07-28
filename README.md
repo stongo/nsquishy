@@ -1,14 +1,11 @@
 # nsquishy
 
-A **[Hapi](http://github.com/hapijs/hapijis)** plugin that creates a wrapper of **[nsqjs](https://github.com/dudleycarr/nsqjs)** to simplify microservice workers using NSQ
+A wrapper of **[nsqjs](https://github.com/dudleycarr/nsqjs)** to simplify microservice workers using NSQ
 
 ## Example
 
 ```
-var Hapi = require('hapi');
-
-var server = new Hapi.Server();
-server.connection();
+var Nsquishy = require('nsquishy');
 
 // specify nsqlookupd host yourself
 var options = {
@@ -39,47 +36,35 @@ var optionsNoTopic = {
     nsqdPort: '4150'
 }
 
-server.register([
-    {
-        register: require('nsquishy'),
-        options: options
-        //options: optionsEtcd
-        //options: optionsNsqd
-        //options: optiionsNoTopic
-    }
-], function (err) {
+var nsquishy = new Nsquishy(options)
+nsquishy.squish(function (err) {
     if (err) {
-        console.error('Failed to load a plugin:', err);
+      throw err;
     }
-
-    server.app.nsqReader.init(function (err, callback) {
+    nsquishy.nsqReader.init(function (err, callback) {
         if (err) {
             throw err;
         }
-        server.app.nsqReader.on('message', function(msg) {
+        nsquishy.nsqReader.on('message', function(msg) {
             console.log('received message: %j', msg);
         });
     });
 
-    server.app.nsqWriter.init(function (err, callback) {
+    nsquishy.nsqWriter.init(function (err, callback) {
         if (err) {
             throw err;
         }
         setInterval(function () {
-            server.app.nsqWriter.publish('test', 'hello world');
+            nsquishy.nsqWriter.publish('test', 'hello world');
         }, 30000);
     });
 });
 
-server.start(function () {
-    console.log('Server running at:', server.info.uri);
-});
-
 ```
 
-## Plugin Options
+## Options
 
-The following options are available when registering the plugin
+The following options are available when instantiating Nsquishy
 
 ### nsqlookupd
 
@@ -105,7 +90,7 @@ The following options are available when registering the plugin
 
 ## Writer
 
-On registration, `server.app.nsqWriter` is assigned an initialized instance of a **[nsqjs writer](https://github.com/dudleycarr/nsqjs)**
+On calling `nsquishy.squish()`, `nsquishy.nsqWriter` is assigned an initialized instance of a **[nsqjs writer](https://github.com/dudleycarr/nsqjs)**
 
 ### Methods:
 
@@ -115,14 +100,10 @@ See nsqjs for full writer documentation
 
 ## Reader
 
-On registration, `server.app.nsqReader` is assigned an initialized instance of a **[nsqjs reader](https://github.com/dudleycarr/nsqjs)**
+On calling `nsquishy.squish()`, `nsquishy.nsqReader` is assigned an initialized instance of a **[nsqjs reader](https://github.com/dudleycarr/nsqjs)**
 
 ### Methods:
 
 * `init` - initializes connection to nsq. Callback fires on `nsqd_connected` event. Automatically handles `err` and `nsqd_connected` events
 
 See nsqjs for full reader documentation
-
-## Testing
-
-Install https://github.com/stongo/nsq-vagrant to run tests and develop your workers
